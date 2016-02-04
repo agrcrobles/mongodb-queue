@@ -11,7 +11,6 @@
  **/
 "use strict";
 
-const ObjectID = require("mongodb").ObjectID;
 const crypto = require("crypto");
 
 // some helper functions
