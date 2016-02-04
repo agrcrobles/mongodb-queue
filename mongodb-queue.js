@@ -102,7 +102,6 @@ Queue.prototype.get = function (opts, callback) {
 		opts = {};
 	}
 
-	const user = opts.user;
 	const visibility = opts.visibility || self.visibility;
 	const query = {
 		visible: { $lt: now() },
@@ -120,8 +119,8 @@ Queue.prototype.get = function (opts, callback) {
 		}
 	};
 
-	if (user) {
-		update.user = user;
+	if (opts.user) {
+		update.$set.user = opts.user;
 	}
 
 	self.col.findOneAndUpdate(query, update, { sort: sort, returnOriginal: false }, (err, result) => {
