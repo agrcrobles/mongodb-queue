@@ -268,6 +268,16 @@ queue.get({ visibility: 10 }, function(err, msg) {
 })
 ```
 
+You can also add a `user` to the object to identify a user/agent who last claimed the message:
+
+```js
+queue.get({ user: "1234" }, function(err, msg) {
+    // You can now process the message for 10s before it goes back into the queue if not ack'd instead of the duration that is set on the queue in general
+})
+```
+
+The `user` property can be any data type, including ObjectIDs.
+
 Message will have the following structure:
 
 ```js
@@ -276,6 +286,9 @@ Message will have the following structure:
   ack: 'c8a3cc585cbaaacf549d746d7db72f69', // ID for ack and ping operations
   payload: 'Hello, World!', // Payload passed when the message was addded
   tries: 1 // Number of times this message has been retrieved from queue without being ack'd
+  firstClaimed: "2016-02-03T01:03:32.257Z" // ISO Date for when the message was first claimed (happens with each `get` but not on `pings`)
+  deleted: "2016-02-03T01:05:32.257Z" // ISO Date of when the message was deleted, if applicaple
+  user: "533b1eb64ee65a57864cc84d" // Identifier for the user/agent that last claimed the message, if applicable
 }
 ```
 
