@@ -4,7 +4,7 @@
   "description": "Message queues which uses MongoDB.",
   "main": "mongodb-queue.js",
   "engines": {
-    "node": ">=4.2.1 <4.3.0"
+    "node": ">=4.2.1 <4.4.0"
   },
   "scripts": {
     "test": "set -e; for FILE in test/*.js; do node $FILE; done"
