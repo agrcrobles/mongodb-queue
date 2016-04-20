@@ -134,9 +134,6 @@ Queue.prototype.get = function (opts, callback) {
 			return callback();
 		}
 
-		msg.id = msg._id.toHexString();
-		delete msg._id;
-
 		// if we have a deadQueue, then check the tries, else don't
 		if (self.deadQueue) {
 			// check the tries
