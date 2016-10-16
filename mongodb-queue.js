@@ -56,7 +56,7 @@ function Queue(mongoDbClient, name, opts) {
 Queue.prototype.createIndexes = function (callback) {
 	const self = this;
 
-	self.col.createIndex({ deleted: 1, visible: 1, _id: 1 }, (err, indexname) => {
+	self.col.createIndex({ deleted: 1, visible: 1 }, (err, indexname) => {
 		if (err) {
 			return callback(err);
 		}
@@ -105,7 +105,7 @@ Queue.prototype.get = function (opts, callback) {
 	const visibility = opts.visibility || self.visibility;
 	const query = {
 		visible: { $lt: now() },
-		deleted: { $exists: false },
+		deleted: null,
 	};
 	const sort = {
 		_id: 1
@@ -177,7 +177,7 @@ Queue.prototype.ping = function (ack, opts, callback) {
 	const query = {
 		ack: ack,
 		visible: { $gt: now() },
-		deleted: { $exists: false },
+		deleted: null,
 	};
 	const update = {
 		$set: {
@@ -204,7 +204,7 @@ Queue.prototype.ack = function (ack, callback) {
 	const query = {
 		ack: ack,
 		visible: { $gt: now() },
-		deleted: { $exists: false },
+		deleted: null,
 	};
 	const update = {
 		$set: {
@@ -252,7 +252,7 @@ Queue.prototype.size = function (callback) {
 
 	const query = {
 		visible: { $lt: now() },
-		deleted: { $exists: false },
+		deleted: null,
 	};
 
 	self.col.count(query, (err, count) => {
@@ -270,7 +270,7 @@ Queue.prototype.inFlight = function (callback) {
 	const query = {
 		visible: { $gt: now() },
 		ack: { $exists: true },
-		deleted: { $exists: false },
+		deleted: null,
 	};
 
 	self.col.count(query, (err, count) => {

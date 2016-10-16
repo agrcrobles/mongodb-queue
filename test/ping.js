@@ -118,15 +118,16 @@ test("ping: check visibility option overrides the queue visibility", function(t)
                     queue.add('Hello, World!', function(err, id) {
                         t.ok(!err, 'There is no error when adding a message.')
                         t.ok(id, 'There is an id returned when adding a message.')
-                        next()
+                        setTimeout(next, 1000);
                     })
                 },
                 function(next) {
                     queue.get(function(err, thisMsg) {
+                        // console.log(thisMsg);
                         msg = thisMsg
                         // message should reset in three seconds
                         t.ok(msg.id, 'Got a msg.id (sanity check)')
-                        setTimeout(next, 2 * 1000)
+                        setTimeout(next, 1 * 1000)
                     })
                 },
                 function(next) {
