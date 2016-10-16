@@ -123,7 +123,6 @@ test("ping: check visibility option overrides the queue visibility", function(t)
                 },
                 function(next) {
                     queue.get(function(err, thisMsg) {
-                        // console.log(thisMsg);
                         msg = thisMsg
                         // message should reset in three seconds
                         t.ok(msg.id, 'Got a msg.id (sanity check)')
