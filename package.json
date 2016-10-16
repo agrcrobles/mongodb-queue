@@ -1,10 +1,10 @@
 {
-  "name": "mongodb-queue",
+  "name": "@chrishenderson/mongodb-queue",
   "version": "2.0.0",
   "description": "Message queues which uses MongoDB.",
   "main": "mongodb-queue.js",
   "engines": {
-    "node": ">=4.2.1 <4.4.0"
+    "node": ">=4"
   },
   "scripts": {
     "test": "set -e; for FILE in test/*.js; do node $FILE; done"
@@ -13,7 +13,7 @@
   "devDependencies": {
     "tape": "^4.2.2",
     "mongodb": "^2.0.48",
-    "async": "^1.5.0"
+    "async": "^2.1.1"
   },
   "homepage": "https://github.com/chilts/mongodb-queue",
   "repository": {

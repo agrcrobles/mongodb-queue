@@ -80,7 +80,7 @@ setup(function(db) {
                         msg = thisMsg
                         t.ok(!err, 'No error when getting this message')
                         t.ok(msg.id, 'Got this message id')
-                        next()
+                        setTimeout(next, 4 * 1000)
                     })
                 },
                 function(next) {
