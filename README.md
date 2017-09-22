@@ -1,6 +1,6 @@
 # mongodb-queue #
 
-[![Build Status](https://travis-ci.org/chilts/mongodb-queue.png)](https://travis-ci.org/chilts/mongodb-queue) [![NPM](https://nodei.co/npm/mongodb-queue.png?mini=true)](https://nodei.co/npm/mongodb-queue/)
+> It is fork of mongodb-queue, enhanced by @chenderson
 
 A really light-weight way to create queue with a nice API if you're already
 using MongoDB.
@@ -304,6 +304,18 @@ queue.get(function(err, msg) {
     })
 })
 ```
+### .postpone() ###
+
+After you have received an item from a queue and processed it, you can postpone it
+by calling `.postpone()` with the unique `ackId` returned:
+
+```js
+queue.get((err, msg) => {
+    queue.postpone(msg.ack, { delay: 60 }, (err, id) => {
+        // this message has now been postponed 60s in the queue
+    })
+})
+```
 
 ### .ping() ###
 
@@ -418,6 +430,10 @@ is to install a later version of the driver. I have tried this with v1.4.9 and i
 Yay! We made it to v1.0. This means that development may slow down but to be honest, I have pretty
 much all of the functionality I want in this thing done. Thanks to everyone for feedback, reports
 and pull requests.
+
+### 3.0.0 (2014-10-30) ###
+
+* [NEW] Added postponed queue by agrcrobles
 
 ### 1.0.0 (2014-10-30) ###
 

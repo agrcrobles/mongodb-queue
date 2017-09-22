@@ -1,6 +1,6 @@
 {
-  "name": "@chrishenderson/mongodb-queue",
-  "version": "2.0.3",
+  "name": "@agrcrobles/mongodb-queue",
+  "version": "3.0.0",
   "description": "Message queues which uses MongoDB.",
   "main": "mongodb-queue.js",
   "engines": {

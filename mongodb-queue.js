@@ -197,7 +197,39 @@ Queue.prototype.ping = function (ack, opts, callback) {
 		callback(null, msg.value._id.toHexString());
 	});
 };
+Queue.prototype.postpone = function (ack, opts, callback) {
+	const self = this;
 
+	if (!callback) {
+		throw new Error("mongodb-queue: provide a callback to postpone a queue");
+	}
+	if (!ack) {
+		return callback(new Error("mongodb-queue: provide an ack to postpone a queue"));
+	}
+	if (!(opts || {}).delay) {
+		return callback(new Error("mongodb-queue: provide a delay to postpone a queue"));
+	}
+	const query = {
+		ack,
+		deleted: null,
+	};
+	const update = {
+		$inc: { postponed: 1 },
+		$set: {
+			visible: nowPlusSecs(opts.delay),
+		}
+	};
+	self.col.findOneAndUpdate(query, update, { returnOriginal: false }, (err, msg) => {
+		if (err) {
+			return callback(err);
+		}
+		if (!msg.value) {
+			return callback(new Error("Queue.ping(): Unidentified ack  : " + ack));
+		}
+
+		callback(null, msg.value._id.toHexString());
+	});
+};
 Queue.prototype.ack = function (ack, callback) {
 	const self = this;
 
